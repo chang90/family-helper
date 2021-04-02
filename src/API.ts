@@ -6,11 +6,13 @@ export type CreateListInput = {
   id?: string | null,
   title: string,
   description?: string | null,
+  imageKey?: string | null,
 };
 
 export type ModelListConditionInput = {
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  imageKey?: ModelStringInput | null,
   and?: Array< ModelListConditionInput | null > | null,
   or?: Array< ModelListConditionInput | null > | null,
   not?: ModelListConditionInput | null,
@@ -61,6 +63,7 @@ export type List = {
   id?: string,
   title?: string,
   description?: string | null,
+  imageKey?: string | null,
   ListItems?: ModelListItemConnection,
   createdAt?: string,
   updatedAt?: string,
@@ -103,6 +106,7 @@ export type UpdateListInput = {
   id: string,
   title?: string | null,
   description?: string | null,
+  imageKey?: string | null,
 };
 
 export type DeleteListInput = {
@@ -184,6 +188,7 @@ export type ModelListFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  imageKey?: ModelStringInput | null,
   and?: Array< ModelListFilterInput | null > | null,
   or?: Array< ModelListFilterInput | null > | null,
   not?: ModelListFilterInput | null,
@@ -240,6 +245,7 @@ export type CreateListMutation = {
     id: string,
     title: string,
     description?: string | null,
+    imageKey?: string | null,
     ListItems?:  {
       __typename: "ModelListItemConnection",
       items?:  Array< {
@@ -269,6 +275,7 @@ export type UpdateListMutation = {
     id: string,
     title: string,
     description?: string | null,
+    imageKey?: string | null,
     ListItems?:  {
       __typename: "ModelListItemConnection",
       items?:  Array< {
@@ -298,6 +305,7 @@ export type DeleteListMutation = {
     id: string,
     title: string,
     description?: string | null,
+    imageKey?: string | null,
     ListItems?:  {
       __typename: "ModelListItemConnection",
       items?:  Array< {
@@ -333,6 +341,7 @@ export type CreateListItemMutation = {
       id: string,
       title: string,
       description?: string | null,
+      imageKey?: string | null,
       ListItems?:  {
         __typename: "ModelListItemConnection",
         nextToken?: string | null,
@@ -373,6 +382,7 @@ export type UpdateListItemMutation = {
       id: string,
       title: string,
       description?: string | null,
+      imageKey?: string | null,
       ListItems?:  {
         __typename: "ModelListItemConnection",
         nextToken?: string | null,
@@ -413,6 +423,7 @@ export type DeleteListItemMutation = {
       id: string,
       title: string,
       description?: string | null,
+      imageKey?: string | null,
       ListItems?:  {
         __typename: "ModelListItemConnection",
         nextToken?: string | null,
@@ -457,6 +468,7 @@ export type CreateActionMutation = {
         id: string,
         title: string,
         description?: string | null,
+        imageKey?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -493,6 +505,7 @@ export type UpdateActionMutation = {
         id: string,
         title: string,
         description?: string | null,
+        imageKey?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -529,6 +542,7 @@ export type DeleteActionMutation = {
         id: string,
         title: string,
         description?: string | null,
+        imageKey?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -554,6 +568,7 @@ export type GetListQuery = {
     id: string,
     title: string,
     description?: string | null,
+    imageKey?: string | null,
     ListItems?:  {
       __typename: "ModelListItemConnection",
       items?:  Array< {
@@ -586,6 +601,7 @@ export type ListListsQuery = {
       id: string,
       title: string,
       description?: string | null,
+      imageKey?: string | null,
       ListItems?:  {
         __typename: "ModelListItemConnection",
         nextToken?: string | null,
@@ -613,6 +629,7 @@ export type GetListItemQuery = {
       id: string,
       title: string,
       description?: string | null,
+      imageKey?: string | null,
       ListItems?:  {
         __typename: "ModelListItemConnection",
         nextToken?: string | null,
@@ -656,6 +673,7 @@ export type ListListItemsQuery = {
         id: string,
         title: string,
         description?: string | null,
+        imageKey?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -690,6 +708,7 @@ export type GetActionQuery = {
         id: string,
         title: string,
         description?: string | null,
+        imageKey?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -740,6 +759,7 @@ export type OnCreateListSubscription = {
     id: string,
     title: string,
     description?: string | null,
+    imageKey?: string | null,
     ListItems?:  {
       __typename: "ModelListItemConnection",
       items?:  Array< {
@@ -764,6 +784,7 @@ export type OnUpdateListSubscription = {
     id: string,
     title: string,
     description?: string | null,
+    imageKey?: string | null,
     ListItems?:  {
       __typename: "ModelListItemConnection",
       items?:  Array< {
@@ -788,6 +809,7 @@ export type OnDeleteListSubscription = {
     id: string,
     title: string,
     description?: string | null,
+    imageKey?: string | null,
     ListItems?:  {
       __typename: "ModelListItemConnection",
       items?:  Array< {
@@ -818,6 +840,7 @@ export type OnCreateListItemSubscription = {
       id: string,
       title: string,
       description?: string | null,
+      imageKey?: string | null,
       ListItems?:  {
         __typename: "ModelListItemConnection",
         nextToken?: string | null,
@@ -853,6 +876,7 @@ export type OnUpdateListItemSubscription = {
       id: string,
       title: string,
       description?: string | null,
+      imageKey?: string | null,
       ListItems?:  {
         __typename: "ModelListItemConnection",
         nextToken?: string | null,
@@ -888,6 +912,7 @@ export type OnDeleteListItemSubscription = {
       id: string,
       title: string,
       description?: string | null,
+      imageKey?: string | null,
       ListItems?:  {
         __typename: "ModelListItemConnection",
         nextToken?: string | null,
@@ -927,6 +952,7 @@ export type OnCreateActionSubscription = {
         id: string,
         title: string,
         description?: string | null,
+        imageKey?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -958,6 +984,7 @@ export type OnUpdateActionSubscription = {
         id: string,
         title: string,
         description?: string | null,
+        imageKey?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -989,6 +1016,7 @@ export type OnDeleteActionSubscription = {
         id: string,
         title: string,
         description?: string | null,
+        imageKey?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,

@@ -11,6 +11,7 @@ export const createList = /* GraphQL */ `
       id
       title
       description
+      imageKey
       ListItems {
         items {
           id
@@ -36,6 +37,7 @@ export const updateList = /* GraphQL */ `
       id
       title
       description
+      imageKey
       ListItems {
         items {
           id
@@ -61,6 +63,7 @@ export const deleteList = /* GraphQL */ `
       id
       title
       description
+      imageKey
       ListItems {
         items {
           id
@@ -91,6 +94,7 @@ export const createListItem = /* GraphQL */ `
         id
         title
         description
+        imageKey
         ListItems {
           nextToken
         }
@@ -125,6 +129,7 @@ export const updateListItem = /* GraphQL */ `
         id
         title
         description
+        imageKey
         ListItems {
           nextToken
         }
@@ -159,6 +164,7 @@ export const deleteListItem = /* GraphQL */ `
         id
         title
         description
+        imageKey
         ListItems {
           nextToken
         }
@@ -196,6 +202,7 @@ export const createAction = /* GraphQL */ `
           id
           title
           description
+          imageKey
           createdAt
           updatedAt
         }
@@ -227,6 +234,7 @@ export const updateAction = /* GraphQL */ `
           id
           title
           description
+          imageKey
           createdAt
           updatedAt
         }
@@ -258,6 +266,7 @@ export const deleteAction = /* GraphQL */ `
           id
           title
           description
+          imageKey
           createdAt
           updatedAt
         }

@@ -8,10 +8,9 @@ import callGraphQL from './graphql/graphql-api';
 import MainHeader from './components/headers/MainHeader';
 import Lists from './components/list/Lists';
 import { Button, Container, Icon } from 'semantic-ui-react';
-import { createList, deleteList, updateList } from './graphql/mutations';
+import { deleteList } from './graphql/mutations';
 import { onCreateList, onDeleteList, onUpdateList } from './graphql/subscriptions';
 import ListModal from './components/models/ListModal';
-import UploadImage from './components/handleImages/UploadImage';
 
 
 interface ListData {
@@ -118,6 +117,7 @@ function App() {
 
   useEffect(() => {
     fetchList()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -177,21 +177,7 @@ function App() {
 
 
 
-  const saveList = async () => {
-    const { title, description } = state;
-    const result = await API.graphql(graphqlOperation(createList, { input: { title, description } }));
-    dispatch({ type: 'CLOSE_MODAL' })
-    console.log('result', result)
-  }
 
-  const changeList = async () => {
-    const { id, title, description } = state;
-    const result = await API.graphql(
-      graphqlOperation(updateList, { input: { id, title, description } })
-    );
-    dispatch({ type: 'CLOSE_MODAL' });
-    console.log('Edit data with result: ', result);
-  }
 
 
   return (
@@ -203,9 +189,8 @@ function App() {
         </Button>
         <MainHeader />
         <Lists lists={state.lists} dispatch={dispatch} />
-        <UploadImage />
       </Container>
-      <ListModal state={state} dispatch={dispatch} saveList={saveList} changeList={changeList} />
+      <ListModal state={state} dispatch={dispatch} />
     </AmplifyAuthenticator>
   );
 }

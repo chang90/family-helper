@@ -1,27 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Header, Image } from 'semantic-ui-react';
-import { Storage } from 'aws-amplify';
 
 
-const UploadImage = () => {
+const UploadImage: (input:any) => void = ({getSelectedFile}) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState('https://react.semantic-ui.com/images/wireframe/image.png')
-  const [fileName, setFileName] = useState<any>();
 
-  useEffect(() => {
-    if(!fileName) return;
 
-    const [file, extension] = fileName.name.split(".")[1]
-    const mimeType = fileName.type;
-    const key = `images/lists/${file}.${extension}`;
-    const result = Storage.put(key, file, {
-      contentType: mimeType,
-      metadata: {
-        app: 'family helper'
-      } 
-    });
-    console.log(result)
-  },[fileName])
 
   const handleInputChange = (event: {target: HTMLInputElement}) => {
     if(event?.target?.files) {
@@ -29,7 +14,7 @@ const UploadImage = () => {
       if (!fileToUpload) return;
       const fileSampleUrl = URL.createObjectURL(fileToUpload);
       setImage(fileSampleUrl);
-      setFileName(fileToUpload)
+      getSelectedFile(fileToUpload);
     }
 
   }
