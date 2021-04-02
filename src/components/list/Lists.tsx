@@ -17,7 +17,8 @@ const Lists: React.FC<{lists: any, dispatch: any}> = ({lists, dispatch}) => {
             <Item.Extra>
               {new Date(item.createdAt).toDateString()}
               <Icon name='trash' onClick={() => dispatch({type:'DELETE_LIST', value: item.id})}/>
-              </Item.Extra>
+              <Icon name='edit' onClick={() => dispatch({type:'EDIT_LIST', value: item})}/>
+            </Item.Extra>
           </Item.Content>
         </Item>
       </List>

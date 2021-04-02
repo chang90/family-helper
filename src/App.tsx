@@ -7,10 +7,10 @@ import { listLists } from './graphql/queries';
 import callGraphQL from './graphql/graphql-api';
 import MainHeader from './components/headers/MainHeader';
 import Lists from './components/list/Lists';
-import { Button, Container, Form, Icon, Modal } from 'semantic-ui-react';
-import { createList, deleteList } from './graphql/mutations';
-import { onCreateList, onDeleteList } from './graphql/subscriptions';
-
+import { Button, Container, Icon } from 'semantic-ui-react';
+import { createList, deleteList, updateList } from './graphql/mutations';
+import { onCreateList, onDeleteList, onUpdateList } from './graphql/subscriptions';
+import ListModal from './components/models/ListModal';
 
 interface ListData {
 
@@ -74,6 +74,7 @@ function listReducer(state: any = initialState, action: { type: string, value?: 
       newList = [...state.lists];
       delete action.value.listItems;
       newList[index] = action.value;
+      console.log('UPDATE_LIST_RESULT', newList)
       return { ...state, lists: newList };
     case 'EDIT_LIST': {
       const newValue = { ...action.value };
@@ -123,10 +124,23 @@ function App() {
     if ("subscribe" in createListSub) {
       createListSub.subscribe({
         next: (object: { value: { data: { onCreateList: any } } }) => {
-          console.log('123',object.value.data.onCreateList)
           dispatch({
             type: 'UPDATE_LISTS',
             value: [object.value.data.onCreateList],
+          });
+        }
+      })
+    }
+
+    let editListSub =
+      API.graphql(graphqlOperation(onUpdateList))
+    if ("subscribe" in editListSub) {
+      editListSub.subscribe({
+        next: (object: { value: { data: { onUpdateList: any } } }) => {
+          console.log('onUpdateList called', object.value.data.onUpdateList);
+          dispatch({
+            type: 'UPDATE_LIST_RESULT',
+            value: object.value.data.onUpdateList
           });
         }
       })
@@ -137,7 +151,7 @@ function App() {
     if ("subscribe" in deleteListSub) {
       deleteListSub.subscribe({
         next: (object: { value: { data: { onDeleteList: any } } }) => {
-          console.log('onDeleteList called',object.value.data.onDeleteList.id);
+          console.log('onDeleteList called', object.value.data.onDeleteList.id);
           dispatch({
             type: 'DELETE_LIST_RESULT',
             value: object.value.data.onDeleteList.id,
@@ -153,6 +167,9 @@ function App() {
       if ("unsubscribe" in deleteListSub) {
         (deleteListSub as any).unsubscribe();
       }
+      if ("unsubscribe" in editListSub) {
+        (editListSub as any).unsubscribe();
+      }
     }
   }, []);
 
@@ -165,6 +182,16 @@ function App() {
     console.log('result', result)
   }
 
+  const changeList = async () => {
+    const { id, title, description } = state;
+    const result = await API.graphql(
+      graphqlOperation(updateList, { input: { id, title, description } })
+    );
+    dispatch({ type: 'CLOSE_MODAL' });
+    console.log('Edit data with result: ', result);
+  }
+
+
   return (
     <AmplifyAuthenticator>
       <Container>
@@ -175,28 +202,7 @@ function App() {
         <MainHeader />
         <Lists lists={state.lists} dispatch={dispatch} />
       </Container>
-      <Modal open={state.isModalOpen} dimmer='inverted'>
-        <Modal.Header>Create your list</Modal.Header>
-        <Modal.Content>
-          <Form>
-            <Form.Input
-              error={true ? false : { content: 'Please add a name to your list' }}
-              label="Title"
-              placeholder="My pretty list"
-              value={state.title}
-              onChange={(e) => dispatch({ type: 'TITLE_CHANGED', value: e.target.value })}></Form.Input>
-            <Form.TextArea
-              label='Description'
-              placeholder='Things that my pretty list is about'
-              value={state.description}
-              onChange={(e) => dispatch({ type: 'DESCRIPTION_CHANGED', value: e.target.value })}></Form.TextArea>
-          </Form>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button negative  onClick={() => dispatch({ type: 'CLOSE_MODAL' })}>Cancel</Button>
-          <Button positive onClick={() => { saveList() }}>Save</Button>
-        </Modal.Actions>
-      </Modal>
+      <ListModal state={state} dispatch={dispatch} saveList={saveList} changeList={changeList} />
     </AmplifyAuthenticator>
   );
 }
