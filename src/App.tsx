@@ -62,7 +62,6 @@ function listReducer(state: any = initialState, action: { type: string, value?: 
         id: '',
       };
     case 'DELETE_LIST':
-      console.log(action.value);
       deleteListById(action.value);
       return { ...state };
     case 'DELETE_LIST_RESULT':
@@ -98,15 +97,12 @@ function listReducer(state: any = initialState, action: { type: string, value?: 
 }
 
 const deleteListById = async (id: string) => {
-  const result = await API.graphql(graphqlOperation(deleteList, { input: { id } }))
-  console.log('deleted', result)
+  await API.graphql(graphqlOperation(deleteList, { input: { id } }))
 }
 
 function App() {
   const [state, dispatch] = useReducer(listReducer, initialState);
   const [lists, setLists] = useState<ListItem[]>([]);
-
-
 
   const fetchList = async () => {
     const { data } = await callGraphQL<ListData>(listLists);
