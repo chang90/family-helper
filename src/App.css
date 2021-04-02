@@ -17,3 +17,7 @@
 .floatingButton_icon {
   margin: 0 !important;
 }
+
+.hide {
+  display: none;
+}

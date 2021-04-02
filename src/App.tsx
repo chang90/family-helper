@@ -11,6 +11,8 @@ import { Button, Container, Icon } from 'semantic-ui-react';
 import { createList, deleteList, updateList } from './graphql/mutations';
 import { onCreateList, onDeleteList, onUpdateList } from './graphql/subscriptions';
 import ListModal from './components/models/ListModal';
+import UploadImage from './components/handleImages/UploadImage';
+
 
 interface ListData {
 
@@ -201,6 +203,7 @@ function App() {
         </Button>
         <MainHeader />
         <Lists lists={state.lists} dispatch={dispatch} />
+        <UploadImage />
       </Container>
       <ListModal state={state} dispatch={dispatch} saveList={saveList} changeList={changeList} />
     </AmplifyAuthenticator>
