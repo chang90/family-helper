@@ -7,7 +7,7 @@ const useS3 = () => {
     const [file, extension] = fileName.name.split(".")
     const mimeType = fileName.type;
     const key = `images/lists/${file}_${uuidv4()}.${extension}`;
-    const result = Storage.put(key, file, {
+    const result = Storage.put(key, fileName, {
       contentType: mimeType,
       metadata: {
         app: 'family helper'
