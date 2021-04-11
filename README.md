@@ -24,10 +24,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 amplify console
 ```
 
-## Deploy project into AWS by Amplify
+## Deploy new Amplify config
 ```
 amplify push
 ```
+
+## Deploy project new version into AWS by Amplify
+When merge any PR into master branch, the deploy pipeline will be automatically triggered, after a short deploy time, the demo page will be up to date by AWS amplify.
+
 ## Future plan
 
 - Add tag filters for todo list item
