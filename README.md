@@ -9,6 +9,12 @@ Go to project source folder, then run
 ```
 npm i
 ```
+pulled amplify and sign in with your aws amplify credentials
+```
+amplify pull
+```
+then typed in your access key id and secret access key
+Select `Do you plan on modifying this backend` option with yes
 
 ## Get start
 In the project directory, you can run:

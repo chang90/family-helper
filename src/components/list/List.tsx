@@ -23,7 +23,6 @@ const List: React.FC<{ id: string, title: string, description: string, imageKey:
       <Image size='tiny'
         src={imageUrl}
       />
-      <a href={imageUrl} download>test</a>
       <Item.Content>
         <Item.Header>{title}</Item.Header>
         <Item.Description>{description}</Item.Description>
